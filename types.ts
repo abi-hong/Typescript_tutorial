@@ -171,3 +171,50 @@ rabbit.name;
 rabbit.carrot;
 // result : 잘 모르겠다면 우선 interface를 사용하고 이후 문제가 발생하였을 때 type을 사용하기 바랍니다.
 
+
+/*
+    타입 단언
+    TS보다 사용자가 어떤 값의 타입에 대한 정보를 더 잘 알때
+    -> 타입 단언은 컴파일 시간에 제거되므로, 타입 단언에 관련된 검사는 런타임 중에 이루어지지 않는다.
+    -> 타입 단언이 틀렸더라도 예외가 발생하거나 null이 생성되지 않을 것
+*/
+const myCanvas = document.getElementById("main_canvas") as HTMLCanvasElement;
+//const myCanvas = <HTMLCanvasElement>document.getElementById("main_canvas");
+
+
+/*
+    리터럴 타입
+*/
+let changingString = "Hello World";
+changingString = "01a Mundo";
+// 변수 `changingString`은 어떤 문자열이든 모두 나타낼 수 있고,
+// 이는 TS의 타입 시스템에서 문자열 타입 변수를 다루는 방식과 동일
+
+const constantString = "Hello World";
+// 변수 `constantString`은 오직 단 한 종류의 문자열만 나타낼 수 있고.
+// 이는 리터럴 타입의 표현 방식이다.
+constantString;
+
+
+/*
+    null과 undefined
+    strictNullChecks 옵션
+    - 설정되지 않았을 때 : null, undefined는 모든 타입의 변수에 대입될 수 있다.
+    - 설정되었을 때 : null or undefined일 대, 해당 값과 함께 메서드 또는 프로퍼티를 사용하기에 앞서
+    해당 값을 테스트 해야 한다.
+*/
+function doSomething(x: string | undefined) {
+    if (x === undefined) {
+        // 아무것도 하지 않는다.
+    } else {
+        console.log("Hello, " + x.toUpperCase());
+    }
+}
+
+// Null 아님 단언 연산자 (접미사 !)
+// TS에서는 명시적인 검사를 하지 않고도 타입에서 null과 undefined를 제거할 수 있는 특별한 구문을 제고
+// -> 표현식 뒤에 !를 작성하면 해당 값이 null 또는 undefined가 아니라고 타입 단언하는 것
+function liveDangerously(x?: number | undefined) {
+    // 오류 없음
+    console.log(x!.toFixed());
+}
