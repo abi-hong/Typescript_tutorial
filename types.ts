@@ -218,3 +218,20 @@ function liveDangerously(x?: number | undefined) {
     // 오류 없음
     console.log(x!.toFixed());
 }
+
+// instanceof narrowing
+function logValue(x: Date | string) {
+    if (x instanceof Date) {
+        console.log(x.toUTCString());
+    } else {
+        console.log(x.toUpperCase());
+    }
+}
+
+// Assinments
+let x = Math.random() < 0.5 ? 10 : "hello world!";
+x = 1;
+console.log(x);
+x = "goodbye!";
+console.log(x);
+
